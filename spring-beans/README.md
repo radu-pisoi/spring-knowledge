@@ -33,7 +33,26 @@ Using these annotations means that your beans are not coupled to Spring-specific
 
 ## Lazy Initialization
 The @Lazy annotation has been present since Spring version 3.0. There’re several ways to tell the IoC container to initialize a bean lazily.
-https://www.baeldung.com/spring-lazy-annotation  
+https://www.baeldung.com/spring-lazy-annotation
+
+## @Qualifier to resolve ambiguous situations
+We use @Qualifier along with @Autowired to provide the bean id or bean name we want to inject in ambiguous situations.
+See sample from com.oxygenxml.knowledge.spring.bean.qualifier
+
+## Spring Bean Scopes
+
+The latest version of Spring framework defines 6 types of scopes:
+* singleton
+* prototype
+* request
+* session
+* application
+* websocket
+
+The last four scopes mentioned request, session, application and websocket are only available in a web-aware application.
+
+
+https://www.baeldung.com/spring-bean-scopes
 
 References:
 https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring
