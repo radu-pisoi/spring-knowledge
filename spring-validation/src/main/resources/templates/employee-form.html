@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<style>
+		table.emp-form td:nth-child(3) {
+			color: red;
+		}
+		</style>
+	</head>
+	<body>
+		<form action="#" th:action="@{/}" th:object="${employee}" method="post">
+			<table class="emp-form">
+				<tr>
+					<td>Name:</td>
+					<td><input type="text" th:field="*{name}" /></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+						Error</td>
+				</tr>
+				
+				<tr>
+					<td>Department:</td>
+					<td><input type="text" th:field="*{dept}" /></td>
+					<td th:if="${#fields.hasErrors('dept')}" th:errors="*{dept}">Department
+						Error</td>
+				</tr>
+				<tr>
+					<td>Date Of Birth:</td>
+					<td><input type="text" th:field="*{dateOfBirth}" /></td>
+					<td th:if="${#fields.hasErrors('dateOfBirth')}"
+						th:errors="*{dateOfBirth}">Date Of Birth Error</td>
+				</tr>
+				<tr>
+					<td>Date Of Marriage:</td>
+					<td><input type="text" th:field="*{dateOfMarriage}" /></td>
+					<td th:if="${#fields.hasErrors('dateOfMarriage')}"
+						th:errors="*{dateOfMarriage}">Date Of Marriage</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit">Submit</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
