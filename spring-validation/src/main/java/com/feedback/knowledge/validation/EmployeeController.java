@@ -5,33 +5,38 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.feedback.knowledge.validation.dto.Employee;
 
-@Controller
-public class EmployeeController implements WebMvcConfigurer {
+@RestController
+public class EmployeeController 
+// implements WebMvcConfigurer 
+{
 	private static List<Employee> employeeList = new ArrayList<>();
 
 	  @PostMapping("/")
 	  public String handlePostRequest(@Valid Employee employee, BindingResult bindingResult) {
 		  System.out.println("Validate employee: " + employee + " -- " + employee.getClass());
+		  System.out.println("BR: " + bindingResult);
 	      if (bindingResult.hasErrors()) {
-	    	  System.out.println("Has errors: " + bindingResult.getErrorCount());
-	    	  System.out.println("Errors: " + bindingResult.getAllErrors());
-	          return "employee-form";
-	      } else {
-	    	  System.out.println("No errors");
+				throw new InputValidationException(
+     					  "Validation failed for: " + employee, bindingResult);
 	      }
+//	    	  System.out.println("Has errors: " + bindingResult.getErrorCount());
+//	    	  System.out.println("Errors: " + bindingResult.getAllErrors());
+////	          return "employee-form";
+////	    	  throw new ResponseStatusException(HttpStatus., reason)
+//	      } else {
+//	    	  System.out.println("No errors");
+//	      }
 	      
 	      employeeList.add(employee);
-	      return "redirect:/employees";
+	      return "ok";
 	  }
 	  
 	  @GetMapping("/")
@@ -45,11 +50,11 @@ public class EmployeeController implements WebMvcConfigurer {
 	      return "employee-view";
 	  }
 	  
-		@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
-			// Admin pages
-	    	registry.addViewController("/").setViewName("employee-form");
-	        registry.addViewController("/employees").setViewName("employee-view");
-	    }
+//		@Override
+//		public void addViewControllers(ViewControllerRegistry registry) {
+//			// Admin pages
+//	    	registry.addViewController("/").setViewName("employee-form");
+//	        registry.addViewController("/employees").setViewName("employee-view");
+//	    }
 	    
 }

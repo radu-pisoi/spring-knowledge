@@ -11,7 +11,24 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Employee {
-public String getName() {
+	
+	@NotNull
+	@Size(min = 5, max = 50)
+	private String name;
+	
+	@Pattern(regexp = "Admin|IT|Sales|Accounts")
+	private String dept;
+	
+	@Past
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfBirth;
+	
+	@Past
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfMarriage;
+	
+	public String getName() {
 		return name;
 	}
 
@@ -43,21 +60,7 @@ public String getName() {
 		this.dateOfMarriage = dateOfMarriage;
 	}
 
-	@NotNull
-	@Size(min = 5, max = 50)
-	private String name;
 	
-	@Pattern(regexp = "Admin|IT|Sales|Accounts")
-	private String dept;
-	
-	@Past
-	@NotNull
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateOfBirth;
-	
-	@Past
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateOfMarriage;
 
 	@AssertTrue(message="The date of marriage should be greater than date of birth.")
 	private boolean isDateOfMarriageValid() {
